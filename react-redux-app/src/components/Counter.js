@@ -4,6 +4,7 @@ import * as actionCreators from "../state/actionCreators";
 
 export function Counter(props) {
   const { count, decrement, increment, reset } = props;
+  console.log(increment);
   return (
     <div>
       <h1>The count is {count}</h1>

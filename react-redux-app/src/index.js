@@ -1,7 +1,8 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { Provider } from "react-redux";
-import { createStore, combineReducers } from "redux";
+import { createStore, combineReducers, compose, applyMiddleware } from "redux";
+import thunk from "redux-thunk";
 
 import "./index.css";
 import App from "./App";
@@ -10,13 +11,18 @@ import * as reducers from "./state/reducers";
 
 //giant reducer being combined
 const monsterReducer = combineReducers({
-  count: reducers.countReducer
+  count: reducers.countReducer,
+  state: reducers.cardReducer
 });
 
 //the store that stores everything
 const store = createStore(
   monsterReducer,
-  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+  {},
+  compose(
+    applyMiddleware(thunk),
+    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+  )
 );
 
 ReactDOM.render(
